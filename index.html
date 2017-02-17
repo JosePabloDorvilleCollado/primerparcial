@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Inicio del primer Parcial</title>
+</head>
+<body>
+<h1>1.3 Empezando - Fundamentos de Git</h1>
+
+<h2>Fundamentos de Git</h2>
+<p>Entonces, ¿qu&eacute;es Git en pocas palabras? Es muy importante asimilar esta secci&oacuten, porque si entiendes lo que es Git y los fundamentos de c&oacutemo funciona, probablemente te sea mucho m&aacutes f&aacutecil usar Git de manera eficaz. A medida que aprendas Git, intenta olvidar todo lo que puedas saber sobre otros <acronym title="Sistema de Control De Versiones">VCSs</acronym>?
+, como Subversion y Perforce; hacerlo te ayudar&aacute a evitar confusiones sutiles a la hora de utilizar la herramienta. Git almacena y modela la informaci&oacuten de forma muy diferente a esos otros sistemas, a pesar de que su interfaz sea bastante similar; comprender esas diferencias evitar&aacute que te confundas a la hora de usarlo.</p>
+
+<h2>Instant&aacuteneas, no diferencias</h2>
+<p>La principal diferencia entre Git y cualquier otro VCS (Subversion y compañía incluidos) es c&oacutemo Git modela sus datos. Conceptualmente, la mayoría de los dem&aacutes sistemas almacenan la informaci&oacuten como una lista de cambios en los archivos. Estos sistemas (CVS, Subversion, Perforce, Bazaar, etc.) modelan la informaci&oacuten que almacenan como un conjunto de archivos y las modificaciones hechas sobre cada uno de ellos a lo largo del tiempo, como ilustra la Figura 1-4.</p>
+
+
+
+<h2>Figura 1-4. Otros sistemas tienden a almacenar los datos como cambios de cada archivo respecto a una versi&oacuten base.</h2>
+<p>Git no modela ni almacena sus datos de este modo. En cambio, Git modela sus datos m&aacutes como un conjunto de instant&aacuteneas de un mini sistema de archivos. Cada vez que confirmas un cambio, o guardas el estado de tu proyecto en Git, él b&aacutesicamente hace una foto del aspecto de todos tus archivos en ese momento, y guarda una referencia a esa instant&aacutenea. Para ser eficiente, si los archivos no se han modificado, Git no almacena el archivo de nuevo, s&oacutelo un enlace al archivo anterior idéntico que ya tiene almacenado. Git modela sus datos m&aacutes como en la Figura 1-5.</p>
+
+
+
+<h2>Figura 1-5. Git almacena la informaci&oacuten como instant&aacuteneas del proyecto a lo largo del tiempo.</h2>
+<p>Esta es una distinci&oacuten importante entre Git y pr&aacutecticamente todos los dem&aacutes VCSs. Hace que Git reconsidere casi todos los aspectos del control de versiones que muchos de los dem&aacutes sistemas copiaron de la generaci&oacuten anterior. Esto hace que Git se parezca m&aacutes a un mini sistema de archivos con algunas herramientas tremendamente potentes construidas sobre él, que a un VCS. Exploraremos algunos de los beneficios que obtienes al modelar tus datos de esta manera cuando veamos ramificaciones (branching) en Git en el Capítulo 3.</p>
+
+<h2>Casi cualquier operaci&oacuten es local</h2>
+<p>La mayoría de las operaciones en Git s&oacutelo necesitan archivos y recursos locales para operar. Por lo general no se necesita informaci&oacuten de ningún otro ordenador de tu red. Si est&aacutes acostumbrado a un CVCS donde la mayoría de las operaciones tienen esa sobrecarga del retardo de la red, este aspecto de Git te va a hacer pensar que los dioses de la velocidad han bendecido Git con poderes sobrenaturales. Como tienes toda la historia del proyecto ahí mismo, en tu disco local, la mayoría de las operaciones parecen pr&aacutecticamente inmediatas.</p>
+
+<p>Por ejemplo, para navegar por la historia del proyecto, Git no necesita salir al servidor para obtener la historia y mostr&aacutertela, simplemente la lee directamente de tu base de datos local. Esto significa que ves la historia del proyecto casi al instante. Si quieres ver los cambios introducidos en un archivo entre la versi&oacuten actual y la de hace un mes, Git puede buscar el archivo hace un mes y hacer un c&aacutelculo de diferencias localmente, en lugar de tener que pedirle a un servidor remoto que lo haga, u obtener una versi&oacuten antigua desde la red y hacerlo de manera local.</p>
+
+<p>Esto también significa que hay muy poco que no puedas hacer si est&aacutes desconectado o sin VPN. Si te subes a un avi&oacuten o a un tren y quieres trabajar un poco, puedes confirmar tus cambios felizmente hasta que consigas una conexi&oacuten de red para subirlos. Si te vas a casa y no consigues que tu cliente VPN funcione correctamente, puedes seguir trabajando. En muchos otros sistemas, esto es imposible o muy doloroso. En Perforce, por ejemplo, no puedes hacer mucho cuando no est&aacutes conectado al servidor; y en Subversion y CVS, puedes editar archivos, pero no puedes confirmar los cambios a tu base de datos (porque tu base de datos no tiene conexi&oacuten). Esto puede no parecer gran cosa, pero te sorprendería la diferencia que puede suponer.</p>
+
+<h2>Git tiene integridad</h2>
+<p>Todo en Git es verificado mediante una suma de comprobaci&oacuten (checksum en inglés) antes de ser almacenado, y es identificado a partir de ese momento mediante dicha suma. Esto significa que es imposible cambiar los contenidos de cualquier archivo o directorio sin que Git lo sepa. Esta funcionalidad est&aacute integrada en Git al m&aacutes bajo nivel y es parte integral de su filosofía. No puedes perder informaci&oacuten durante su transmisi&oacuten o sufrir corrupci&oacuten de archivos sin que Git lo detecte.</p>
+
+<p>El mecanismo que usa Git para generar esta suma de comprobaci&oacuten se conoce como hash SHA-1. Se trata de una cadena de 40 caracteres hexadecimales (0-9 y a-f), y se calcula en base a los contenidos del archivo o estructura de directorios. Un hash SHA-1 tiene esta pinta: 24b9da6552252987aa493b52f8696cd6d3b00373</p>
+
+<p>Ver&aacutes estos valores hash por todos lados en Git, ya que los usa con mucha frecuencia. De hecho, Git guarda todo no por nombre de archivo, sino por el valor hash de sus contenidos.</p>
+
+<h2>Git generalmente s&oacutelo añade informaci&oacuten</h2>
+<p>Cuando realizas acciones en Git, casi todas ellas s&oacutelo añaden informaci&oacuten a la base de datos de Git. Es muy difícil conseguir que el sistema haga algo que no se pueda deshacer, o que de algún modo borre informaci&oacuten. Como en cualquier VCS, puedes perder o estropear cambios que no has confirmado todavía; pero después de confirmar una instant&aacutenea en Git, es muy difícil de perder, especialmente si envías (push) tu base de datos a otro repositorio con regularidad.</p>
+
+<p>Esto hace que usar Git sea un placer, porque sabemos que podemos experimentar sin peligro de fastidiar gravemente las cosas. Para un an&aacutelisis m&aacutes exhaustivo de c&oacutemo almacena Git su informaci&oacuten y c&oacutemo puedes recuperar datos aparentemente perdidos, ver Capítulo 9.<p>
+
+<h2>Los tres estados</h2>
+<p>Ahora presta atenci&oacuten. Esto es lo m&aacutes importante a recordar acerca de Git si quieres que el resto de tu proceso de aprendizaje prosiga sin problemas. Git tiene tres estados principales en los que se pueden encontrar tus archivos:
+ confirmado (committed), modificado (modified), y preparado (staged). Confirmado significa que los datos est&aacuten almacenados de manera segura en tu base de datos local. Modificado significa que has modificado el archivo pero todavía no lo has confirmado a tu base de datos. Preparado significa que has marcado un archivo modificado en su versi&oacuten actual para que vaya en tu pr&oacutexima confirmaci&oacuten.</p>
+
+<p>Esto nos lleva a las tres secciones principales de un proyecto de Git: el directorio de Git (Git directory), el directorio de trabajo (working directory), y el &aacuterea de preparaci&oacuten (staging area).</p>
+
+
+
+<h2>Figura 1-6. Directorio de trabajo, &aacuterea de preparaci&oacuten y directorio de Git.</h2>
+</p>El directorio de Git es donde Git almacena los metadatos y la base de datos de objetos para tu proyecto. Es la parte m&aacutes importante de Git, y es lo que se copia cuando clonas un repositorio desde otro ordenador.</p>
+
+<p>El directorio de trabajo es una copia de una versi&oacuten del proyecto. Estos archivos se sacan de la base de datos comprimida en el directorio de Git, y se colocan en disco para que los puedas usar o modificar.</p>
+
+<p>El &aacuterea de preparaci&oacuten es un sencillo archivo, generalmente contenido en tu directorio de Git, que almacena informaci&oacuten acerca de lo que va a ir en tu pr&oacutexima confirmaci&oacuten. A veces se le denomina índice, pero se est&aacute convirtiendo en est&aacutendar el referirse a ella como el &aacuterea de preparaci&oacuten.<p>
+
+<h2>El flujo de trabajo b&aacutesico en Git es algo así:</h2>
+<ol>
+<li>Modificas una serie de archivos en tu directorio de trabajo.</li>
+<li>Preparas los archivos, añadiendolos a tu &aacuterea de preparaci&oacuten.</li>
+<li>Confirmas los cambios, lo que toma los archivos tal y como est&aacuten en el &aacuterea de preparaci&oacuten, y almacena esas instant&aacuteneas de manera permanente en tu directorio de Git.</li>
+<li>Si una versi&oacuten concreta de un archivo est&aacute en el directorio de Git, se considera confirmada (committed). </li>
+<li>Si ha sufrido cambios desde que se obtuvo del repositorio, pero ha sido añadida al &aacuterea de preparaci&oacuten, est&aacute preparada (staged). Y si ha sufrido cambios desde que se obtuvo del repositorio, pero no se ha preparado, est&aacute modificada (modified). En el Capítulo 2 aprender&aacutes m&aacutes acerca de estos estados, y de c&oacutemo puedes aprovecharte de ellos o saltarte toda la parte de preparaci&oacuten.</li>
+</ol>
+</body>
+</html>
